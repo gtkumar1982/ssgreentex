@@ -13,49 +13,21 @@
       event.preventDefault();
 
       let thisForm = this;
-
-      let action = thisForm.getAttribute('action');
       
-      let recaptcha = thisForm.getAttribute('data-recaptcha-site-key');
-      
-      if( ! action ) {
-        displayError(thisForm, 'The form action property is not set!')
-        return;
-      }
       thisForm.querySelector('.loading').classList.add('d-block');
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
 
-      let formData = new FormData( thisForm );
-      var mail = "https://api.elasticemail.com/v2/email/send?apikey=E93E1187262EE419CD9DBDA4C2146D0CF400DDF2CC22C2F4F1084C81EC4FC77772DA53FEDC3BC514B9E106FF53B5A2B3&subject="+ formdata[2].value +"&from=rsathishkumar4@outlook.com&to=rsathishkumar4@gmail.com&bodyHtml=%3Chtml%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbody%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ENAME%20:%20"+ formdata[0].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EEMAIL:%20"+ formdata[1].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ESUBJECT:%20"+ formdata[2].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMESSAGE:%20"+ formdata[3].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/body%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/html%3E";
-      debugger
+      var mail = "https://api.elasticemail.com/v2/email/send?apikey=9E01689184A0AA718F516CC4922A25927C9F9033EFD8686FA68DE40C97B0D9259FA4455AF6C58438ECD11FDBC9462315&subject="+ thisForm[2].value +"&from=ssgreentex@gmail.com&to=ssgreentex@gmail.com&msgBcc=rsathishkumar4@gmail.com&msgCC="+ thisForm[2].value + "&bodyHtml=%3Chtml%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbody%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ENAME%20:%20"+ thisForm[0].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMobile:%20"+ thisForm[1].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EEMAIL:%20"+ thisForm[2].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ESUBJECT:%20"+ thisForm[3].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMESSAGE:%20"+ thisForm[4].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/body%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/html%3E";
+      console.log(mail);
+      php_email_form_submit(mail, thisForm);
 
-      if ( recaptcha ) {
-        if(typeof grecaptcha !== "undefined" ) {
-          grecaptcha.ready(function() {
-            try {
-              grecaptcha.execute(recaptcha, {action: 'php_email_form_submit'})
-              .then(token => {
-                formData.set('recaptcha-response', token);
-                php_email_form_submit(thisForm, action, formData);
-              })
-            } catch(error) {
-              displayError(thisForm, error)
-            }
-          });
-        } else {
-          displayError(thisForm, 'The reCaptcha javascript API url is not loaded!')
-        }
-      } else {
-        php_email_form_submit(thisForm, action, formData);
-      }
     });
   });
 
-  function php_email_form_submit(thisForm, action, formData) {
-    fetch(action, {
-      method: 'POST',
-      body: formData,
+  function php_email_form_submit(mail, thisForm) {
+    fetch(mail, {
+      method: 'GET',
       headers: {'X-Requested-With': 'XMLHttpRequest'}
     })
     .then(response => {
@@ -67,7 +39,7 @@
     })
     .then(data => {
       thisForm.querySelector('.loading').classList.remove('d-block');
-      if (data.trim() == 'OK') {
+      if (JSON.parse(data).success) {
         thisForm.querySelector('.sent-message').classList.add('d-block');
         thisForm.reset(); 
       } else {
@@ -80,8 +52,11 @@
   }
 
   function displayError(thisForm, error) {
+    console.log("<<============= API ERROR ================>>");
+    console.log(error);
+    console.log("<<========================================>>");
     thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.error-message').innerHTML = error;
+    thisForm.querySelector('.error-message').innerHTML = "Server error please contact us directly with this link. <a style='' href='https://goo.gl/maps/AgUzyvPUvpvLtJhE8' target='_blank'> Contact us !!!</a>";
     thisForm.querySelector('.error-message').classList.add('d-block');
   }
 

@@ -319,6 +319,7 @@
               <h4><a href="" style="color: #5cb874;">Cotton</a></h4>
               <ul style="list-style: circle; text-align: left;">
                 <li>Cotton fabrics</li>
+                <li>Kattari lungis</li>
                 <li>Cotton lungies</li>
                 <li>Cotton hand kerchief (Madras special)</li>
               </ul>
@@ -829,6 +830,12 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
+              <img src="assets/img/products/kattari.png" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
               <img src="assets/img/products/cotton (1).jpg" class="img-fluid" alt=""/>
             </div>
           </div>
@@ -866,6 +873,18 @@
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
               <img src="assets/img/products/cotton (3).jpg" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/products/cotton_fabrics.jpeg" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="assets/img/products/cotton_fabrics_2.jpeg" class="img-fluid" alt="">
             </div>
           </div>
 
@@ -968,7 +987,13 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>871, Gandhi street, Valarpuram, Arakkonam - 631003, Ranipet Dt, Tamilnadu, India</p>
+                <div style="display: flex;">
+                  <p style="padding: 0 0 10px 15px;">871, Gandhi street, Valarpuram, Arakkonam - 631003, Ranipet Dt, Tamilnadu, India</p>
+                  <div>
+                    <img src="assets/img/location_qr.png" class="img-fluid" width="100px" alt="">
+                    <b>QR code <a href="https://goo.gl/maps/ntr3noVA2s5SztgT6" target="_blank">help!</a></b>
+                  </div>
+                </div>
               </div>
 
               <div class="email">
@@ -989,20 +1014,24 @@
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Your Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
+                  <input type="text" name="name" class="form-control" id="name" required value="">
                 </div>
                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                  <label for="name">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required >
+                  <label for="name">Your Mobile</label>
+                  <input type="text" maxlength="10" minlength="10" class="form-control" name="mobile" id="mobile" required value="">
                 </div>
               </div>
               <div class="form-group mt-3">
+                <label for="name">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required value="">
+              </div>
+              <div class="form-group mt-3">
                 <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required >
+                <input type="text" class="form-control" name="subject" id="subject" required value="">
               </div>
               <div class="form-group mt-3">
                 <label for="name">Message</label>
@@ -1013,7 +1042,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit" disabled>Send Message</button></div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
           </div>
 
