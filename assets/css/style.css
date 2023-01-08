@@ -1241,3 +1241,34 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+@media (max-width: 1000px) {
+  .img-cert {
+    max-width: 100%;
+    height: auto;
+  }  
+}
+
+@media (min-width: 1001px) {
+  .img-cert {
+    height: auto;
+  }  
+}
+
+@media (max-width: 900px) {
+  .desktop-header {
+    display: none !important;
+  }  
+  .mobile-header {
+    display: block !important;
+  }  
+}
+
+@media (min-width: 901px) {
+  .desktop-header {
+    display: block !important;
+  }  
+  .mobile-header {
+    display: none !important;
+  }  
+}
