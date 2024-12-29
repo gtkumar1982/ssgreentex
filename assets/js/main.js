@@ -4,7 +4,7 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -117,7 +117,7 @@
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
+  on('click', '.mobile-nav-toggle', function (e) {
     select('#navbar').classList.toggle('navbar-mobile')
     this.classList.toggle('bi-list')
     this.classList.toggle('bi-x')
@@ -126,7 +126,7 @@
   /**
    * Mobile nav dropdowns activate
    */
-  on('click', '.navbar .dropdown > a', function(e) {
+  on('click', '.navbar .dropdown > a', function (e) {
     if (select('#navbar').classList.contains('navbar-mobile')) {
       e.preventDefault()
       this.nextElementSibling.classList.toggle('dropdown-active')
@@ -136,7 +136,7 @@
   /**
    * Scrool with ofset on links with a class name .scrollto
    */
-  on('click', '.scrollto', function(e) {
+  on('click', '.scrollto', function (e) {
     if (select(this.hash)) {
       e.preventDefault()
 
@@ -170,7 +170,7 @@
 
   heroCarouselItems.forEach((item, index) => {
     (index === 0) ?
-    heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>":
+      heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "' class='active'></li>" :
       heroCarouselIndicators.innerHTML += "<li data-bs-target='#heroCarousel' data-bs-slide-to='" + index + "'></li>"
   });
 
@@ -222,9 +222,9 @@
 
       let portfolioFilters = select('#portfolio-flters li', true);
 
-      on('click', '#portfolio-flters li', function(e) {
+      on('click', '#portfolio-flters li', function (e) {
         e.preventDefault();
-        portfolioFilters.forEach(function(el) {
+        portfolioFilters.forEach(function (el) {
           el.classList.remove('filter-active');
         });
         this.classList.add('filter-active');
@@ -261,5 +261,38 @@
       clickable: true
     }
   });
+
+  const elements = document.querySelectorAll('.scroll-to-items');
+
+  // Loop through the selected elements and add an event listener
+  elements.forEach(element => {
+    element.addEventListener('click', function (event) {
+
+      event.preventDefault(); // Prevent default anchor click behavior
+
+      // Get the target-data-filter attribute value from the clicked anchor
+      const targetDataFilter = '.' + this.getAttribute('target-data-filter');
+
+      // Select all filter items and remove 'filter-active' class if present
+      const filterItems = document.querySelectorAll('li[data-filter]');
+      filterItems.forEach(item => {
+        if (item.classList.contains('filter-active')) {
+          item.classList.remove('filter-active');
+        }
+      });
+
+      // Add 'filter-active' class to the specified <li> based on targetDataFilter
+      const filterItem = document.querySelector(`li[data-filter="${targetDataFilter}"]`);
+      if (filterItem) {
+        filterItem.classList.add('filter-active');
+        // Scroll to the <li> element
+        filterItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+    });
+  });
+
+
+
 
 })()
