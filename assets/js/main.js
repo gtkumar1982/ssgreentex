@@ -283,8 +283,9 @@
 
       // Add 'filter-active' class to the specified <li> based on targetDataFilter
       const filterItem = document.querySelector(`li[data-filter="${targetDataFilter}"]`);
+      filterItem.click();
       if (filterItem) {
-        filterItem.classList.add('filter-active');
+        // filterItem.classList.add('filter-active');
         // Scroll to the <li> element
         filterItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
