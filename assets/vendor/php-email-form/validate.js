@@ -8,17 +8,17 @@
 
   let forms = document.querySelectorAll('.php-email-form');
 
-  forms.forEach( function(e) {
-    e.addEventListener('submit', function(event) {
+  forms.forEach(function (e) {
+    e.addEventListener('submit', function (event) {
       event.preventDefault();
 
       let thisForm = this;
-      
+
       thisForm.querySelector('.loading').classList.add('d-block');
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
 
-      var mail = "https://api.elasticemail.com/v2/email/send?apikey=781C884F153D2B613FA8BF1A6C2C2F295332D01EF741BD81482FC6CD21AB6BC2EFDCE124596FD9900D88BC6B0CFE1A8F&subject="+ thisForm[0].value +" - SsGreenTex Website Inquiry&from=gtkumar1982@gmail.com&to=ssgreentex@gmail.com&msgBcc=ssgreentex@gmail.com&msgCC="+ thisForm[2].value + "&bodyHtml=%3Chtml%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbody%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ENAME%20:%20"+ thisForm[0].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMobile:%20"+ thisForm[1].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EEMAIL:%20"+ thisForm[2].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ESUBJECT:%20"+ thisForm[3].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMESSAGE:%20"+ thisForm[4].value +"%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/body%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/html%3E";
+      var mail = "https://api.elasticemail.com/v2/email/send?apikey=61B24DDD7436F427F49B8CA5F4E22B59072C5AD2311E897EC0A40562DAFACA018302E7FCF7F40129CEE2643C788EA9A8&subject=" + thisForm[0].value + " - SsGreenTex Website Inquiry&from=rsathishkumar4@gmail.com&to=rsathishkumar4@gmail.com&bodyHtml=%3Chtml%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbody%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ENAME%20:%20" + thisForm[0].value + "%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMobile:%20" + thisForm[1].value + "%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EEMAIL:%20" + thisForm[2].value + "%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3ESUBJECT:%20" + thisForm[3].value + "%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cp%3EMESSAGE:%20" + thisForm[4].value + "%3C/p%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/body%3E%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/html%3E";
       // 9E01689184A0AA718F516CC4922A25927C9F9033EFD8686FA68DE40C97B0D9259FA4455AF6C58438ECD11FDBC9462315
       // 781C884F153D2B613FA8BF1A6C2C2F295332D01EF741BD81482FC6CD21AB6BC2EFDCE124596FD9900D88BC6B0CFE1A8F
       console.log(mail);
@@ -30,27 +30,27 @@
   function php_email_form_submit(mail, thisForm) {
     fetch(mail, {
       method: 'GET',
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(response => {
-      if( response.ok ) {
-        return response.text()
-      } else {
-        throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
-      }
-    })
-    .then(data => {
-      thisForm.querySelector('.loading').classList.remove('d-block');
-      if (JSON.parse(data).success) {
-        thisForm.querySelector('.sent-message').classList.add('d-block');
-        thisForm.reset(); 
-      } else {
-        throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action); 
-      }
-    })
-    .catch((error) => {
-      displayError(thisForm, error);
-    });
+      .then(response => {
+        if (response.ok) {
+          return response.text()
+        } else {
+          throw new Error(`${response.status} ${response.statusText} ${response.url}`);
+        }
+      })
+      .then(data => {
+        thisForm.querySelector('.loading').classList.remove('d-block');
+        if (JSON.parse(data).success) {
+          thisForm.querySelector('.sent-message').classList.add('d-block');
+          thisForm.reset();
+        } else {
+          throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action);
+        }
+      })
+      .catch((error) => {
+        displayError(thisForm, error);
+      });
   }
 
   function displayError(thisForm, error) {
